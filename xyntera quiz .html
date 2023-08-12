@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Funny Quiz Game</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+  <style>@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500|Jost:400,500,600&display=swap");
+    /* Reset styles */
+    body, h1, p, button {
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Jost", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Header styles */
+    header {
+      background-color: #000000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    /* Mobile frame styles */
+    .mobile-frame {
+      position: relative;
+      max-width: 360px; /* Adjust as needed for your frame's dimensions */
+      margin: 0 auto;
+      background: url('') center/contain no-repeat;
+      padding: 10px;
+    }
+
+    /* Main content styles */
+    .quiz-container {
+      border: 2px solid #333;
+      padding: 20px;
+      text-align: center;
+      background-color: #f8f8f8;
+    }
+
+    .question {
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #ff0034;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+    }
+
+    .option {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .option:hover {
+      background-color: #0056b3;
+    }
+
+    .correct-answer {
+      background-color: #00e676;
+      animation: correctAnimation 0.5s;
+    }
+
+    .wrong-answer {
+      background-color: #ff3d00;
+      animation: wrongAnimation 0.5s;
+    }
+
+    .score {
+      margin-top: 20px;
+    }
+
+    .scoreboard {
+      display: none;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    @keyframes correctAnimation {
+      0% { background-color: #007bff; }
+      100% { background-color: #00e676; }
+    }
+
+    @keyframes wrongAnimation {
+      0% { background-color: #007bff; }
+      100% { background-color: #ff3d00; }
+    }
+    }
+    .social-icons {
+     text-align: center;
+     margin-top: 10px;
+    }
+    .social-icons a {
+     color: #333333;
+     margin: 5px;
+     font-size: 24px;
+    }
+    }
+        .social-icons {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .social-icons a {
+            color: #ffffff;
+            margin: 5px;
+            font-size: 24px;
+        }
+        .fade-in {
+            animation: fadeInAnimation 1s ease-in;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+  </style>
+  
+  
+</head>
+<body bgcolor="000000">
+  <header class="fade-in">
+    <h1>Xyntera Quiz Game</h1>
+   <p>Football Quiz</p>
+  </header>
+
+  <div class="mobile-frame fade-in">
+    <div class="quiz-container fade-in">
+      <div class="question fade-in">Question goes here...</div>
+      <div class="options fade-in">
+        <button class="option">Option 1</button>
+        <button class="option">Option 2</button>
+        <button class="option">Option 3</button>
+        <button class="option">Option 4</button>
+      </div>
+      <div class="score fade-in">Score: <span id="score">0</span></div>
+    </div>
+  </div>
+<div class="w3-container w3-content fade-in" style="max-width:800px;margin-top:80px;">
+        <div class="container">
+            <font color="#ffffff"<h3>Enter your Name and Email</h3>
+            <form id="userForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                <br>
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+                
+                <button type="submit" class="w3-button w3-blue">Submit</button>
+            </form>
+        </div>
+    </div>
+    <br>
+  <footer>
+       <div align="center"class="social-icons fade-in">
+        <a href="https://instagram.com/abdu_rahman__007?igshid=MzNlNGNkZWQ4Mg== target="_blank"><i class="fab fa-instagram"></i></a>
+      
+       
+    <a href="" target="_blank"><i class="fab fa-twitter"></i></a>
+    </div>
+    <div class="fade-in"><font align="center" color="#ffffff"><p>&copy; 2023 Xyntera. All rights reserved.</p></font></div>
+     
+  </footer>
+
+  <script>
+    const quizData = [
+     {question: "Who won the FIFA World Cup in 2018?",
+    options: ["Germany", "Brazil", "France", "Argentina"],
+    correctAnswer: "France"
+  },
+  {
+    question: "Which player has won the most Ballon d'Or awards as of 2021?",
+    options: ["Cristiano Ronaldo", "Lionel Messi", "Neymar", "Andres Iniesta"],
+    correctAnswer: "Lionel Messi"
+  },
+  {
+    question: "Which country has won the most Copa America titles?",
+    options: ["Argentina", "Brazil", "Uruguay", "Colombia"],
+    correctAnswer: "Brazil"
+  },
+  {
+    question: "Which club does Cristiano Ronaldo play for as of 2021?",
+    options: ["Manchester United", "FC Barcelona", "Paris Saint-Germain", "Juventus"],
+    correctAnswer: "Manchester United"
+  },
+  {
+    question: "Which country has the most FIFA World Cup titles?",
+    options: ["Italy", "Brazil", "Germany", "Argentina"],
+    correctAnswer: "Brazil"
+  },
+  {
+    question: "In which year was the Premier League formed?",
+    options: ["1985", "1992", "1998", "2000"],
+    correctAnswer: "1992"
+  },
+  {
+    question: "Which player is known as the 'Egyptian King' and plays for Liverpool?",
+    options: ["Riyad Mahrez", "Mo Salah", "Ahmed Hegazi", "Hossam Ghaly"],
+    correctAnswer: "Mo Salah"
+  },
+  {
+    question: "Which national team is known as the 'Socceroos'?",
+    options: ["Australia", "New Zealand", "Ireland", "England"],
+    correctAnswer: "Australia"
+  },
+  {
+    question: "Who is the all-time top scorer in the UEFA Champions League?",
+    options: ["Lionel Messi", "Cristiano Ronaldo", "Raul", "Robert Lewandowski"],
+    correctAnswer: "Cristiano Ronaldo"
+  },
+  {
+    question: "Which country hosted the 2010 FIFA World Cup?",
+    options: ["Germany", "Brazil", "South Africa", "Spain"],
+    correctAnswer: "South Africa"
+  },
+      
+      // ... (other questions and answers)
+    ];
+
+    const questionElement = document.querySelector(".question");
+    const optionsContainer = document.querySelector(".options");
+    const scoreElement = document.getElementById("score");
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function loadQuestion() {
+      const currentQuizData = quizData[currentQuestion];
+      questionElement.innerText = currentQuizData.question;
+      scoreElement.innerText = score;
+
+      optionsContainer.innerHTML = "";
+      currentQuizData.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.innerText = option;
+        button.classList.add("option");
+        button.addEventListener("click", () => checkAnswer(index));
+        optionsContainer.appendChild(button);
+      });
+    }
+
+    function checkAnswer(selectedOptionIndex) {
+      const currentQuizData = quizData[currentQuestion];
+      const userAnswer = currentQuizData.options[selectedOptionIndex];
+
+      userAnswers[currentQuestion] = userAnswer;
+
+      if (userAnswer === currentQuizData.correctAnswer) {
+        score++;
+        scoreElement.innerText = score;
+        optionsContainer.children[selectedOptionIndex].classList.add("correct-answer");
+      } else {
+        optionsContainer.children[selectedOptionIndex].classList.add("wrong-answer");
+      }
+
+      optionsContainer.classList.add("disabled");
+
+      setTimeout(() => {
+        optionsContainer.classList.remove("disabled");
+        currentQuestion++;
+
+        if (currentQuestion < quizData.length) {
+          loadQuestion();
+        } else {
+          endQuiz();
+        }
+      }, 1000);
+    }
+
+    function endQuiz() {
+      questionElement.innerText = "Congratulations! Quiz Completed!";
+      optionsContainer.innerHTML = `<p>Your score: ${score} out of ${quizData.length}</p>`;
+      displayScoreboard();
+    }
+
+    function displayScoreboard() {
+      const scoreboard = document.createElement("div");
+      scoreboard.classList.add("scoreboard");
+      scoreboard.innerHTML = "<h2>Scoreboard</h2>";
+
+      quizData.forEach((quiz, index) => {
+        const userAnswer = userAnswers[index];
+        const isCorrect = userAnswer === quiz.correctAnswer;
+        const resultClass = isCorrect ? "correct-answer" : "wrong-answer";
+
+        const questionNumber = index + 1;
+        const questionText = quiz.question;
+        const userAnswerText = userAnswer ? `Your answer: ${userAnswer}` : "Not answered";
+        const correctAnswerText = `Correct answer: ${quiz.correctAnswer}`;
+
+        const questionResult = `
+          <div class="${resultClass}">
+            <p><strong>Question ${questionNumber}:</strong> ${questionText}</p>
+            <p>${userAnswerText}</p>
+            <p>${correctAnswerText}</p>
+          </div>
+        `;
+
+        scoreboard.innerHTML += questionResult;
+      });
+
+      document.body.appendChild(scoreboard);
+    }
+
+    const userAnswers = []; // Store user's answers
+
+    loadQuestion();
+  </script>
+  
+   <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            
+            console.log('Name:', name);
+            console.log('Email:', email);
+            
+            // You can perform further actions here, such as sending the data to a server.
+        });
+    </script>
+    <style>
+        
+        .containr {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            margin: 100px auto;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+
+        labell {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        buttonn {
+            background-color: #007bff;
+            color: #fff;
+            border: 2px gradient #bbb;
+            padding: 10px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+    
+</body>
+</html>
